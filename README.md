@@ -161,7 +161,7 @@ Can we consider this a similar situation as the rare high penetrant mutations yo
 # Published examples
 Some studies have attempted to predict BMI from genotype (e.g. Speliotes 2010, Nature Genetics 42(11):937-948)
 
-![hover](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/fig1.png)
+<img src="fig1.png">
 
 Fig a. Mean BMI according to risk score - Note there is an increase of ~3kg/m2 between the top and bottom of the genetic risk score
 Fig b. Displays the ROC curve for 2 prediction models. Solid line includes age, age2 and sex (AUC=0.515), dashed line includes age, age2, sex and 32 BMI SNPs (AUC=0.575).
