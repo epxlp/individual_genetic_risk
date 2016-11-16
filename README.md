@@ -1,3 +1,5 @@
+This handout can be found here: [https://epxlp.github.io/individual_genetic_risk/]
+
 There are many ways in which you can estimate an individual’s risk of a particular disease or predict their likely trait value. How you do this will depend on the trait, the circumstances of the individual and the reason for wanting to make such a prediction.
 
 In today’s session we will demonstrate estimating risk and predicting trait values in a variety of settings using different types of information.
@@ -11,15 +13,16 @@ In the GWAS exercise in unit 2 you found a number of genetic variants associated
 Let’s start by reminded ourselves of the association evidence between being BMI and the associated SNPs.
 
 
-| CHR	| SNP	| A1	| BETA	| A1_freq	| var_exp	| OR	| STAT	| P |
-| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	| --- |
-| 1	| rs12748679	| C	| -0.5972	| 	| 0.0038	| 	| -6.42	| 1.4e-10 |
-| 1	| rs630372	| A	| 0.6878	| 	| 	| 	| 7.831	| 5.4e-15 |
-| 2	| rs2867125	| T	| -0.6013	| 	| 	| 	| -6.04	| 2.2e-8 |
-| 4	| rs13130484	| T	| 0.4853	| 	| 	| 	| 6.391	| 1.7e-10 |
-| 8	| rs2920930	| T	| -0.4611	| 	| 	| 	| -5.604	| 2.2e-8 |
-| 16	| rs8050136	| A	| 0.5906	| 	| 	| 	| 7.702	| 1.5e-14 |
-| 18	| rs571312	| A	| 0.9928	| 	| 	| 	| 11.26	| 3.3e-29 |  
+| SNP	| CHR	| BP	| A1	| BETA	| P	| MAF | var_exp |
+| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	|
+| rs12748679	| 1	| 72644585	| C	| -0.598	| 1.3E-10	| 0.205	| 0.0038 |
+| rs630372	| 1	| 177885762	| A	| 0.687	| 5.5E-15	| 0.236	| 0.0055 |
+| rs2867125	| 2	| 622827	| T	| -0.606	| 1.1E-09	| 0.168	| 0.0033 |
+| rs13130484	| 4	| 45175691	| T	| 0.482	| 2.2E-10	| 0.434	| 0.0037 |
+| rs2920930	| 8	| 76733973	| T	| -0.470	| 1.1E-08	| 0.296	| 0.0030 |
+| rs8050136	| 16	| 53816275	| A	| 0.594	| 9.5E-15	| 0.395 | 0.0055 |
+| rs12970134	| 18	| 57884750	| A	| 0.950	| 4.0E-29	| 0.267	| 0.0114 |
+
 
 <br><br>
 > **Task: Examine the strength of the evidence for the association (P-value), the magnitude of the association (beta/OR) and the variance in BMI explained for each of these SNPs, that you estimated in unit 2.  
@@ -144,3 +147,10 @@ In this dataset for the 2 people you predicted would be obese, you would be righ
 <br><br>
 > **Question: What proportion of people have a genetic risk score>=13?  
 Can we consider this a similar situation as the rare high penetrant mutations you were considering in the other part of this practical?**
+
+![hover](/path/tp/image)
+
+# Published examples
+Some studies have attempted to predict BMI from genotype (e.g. Speliotes 2010, Nature Genetics 42(11):937-948)
+
+Fig a. Mean BMI according to risk score - Note there is
