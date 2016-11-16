@@ -29,10 +29,10 @@ Let’s start by reminded ourselves of the association evidence between being BM
 How convinced are you that these variants are associated with BMI/being overweight?**
 
 <br><br>
-Some of these are very strong associations. p=3e-29 is extremely strong evidence of an association. Despite this the effect sizes and the variance explained are quite small {elaborate}. In unit 2 you estimated that the total variance explained for these 7 SNPs was 4%. 
+Some of these are very strong associations. p=4e-29 is extremely strong evidence of an association. Despite this the effect sizes and the variance explained are quite small, explaining at most 1% of variance (and 3.6% together). 
 
 <br><br>
-> **Question: These variants are all associated with being overweight, but what do you think determines how good a variant is for prediction?**
+> **Question: These variants are all associated with being overweight, but what determines how good a variant is for prediction?**
 
 <br><br>
 **BUT – these only tell us how useful a genotype is ‘on average’ in the population. How useful a genotype is for prediction for an individual also depends on the individual’s genotype.
