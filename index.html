@@ -19,7 +19,9 @@
     </section>
 
     <section class="main-content">
-      <p>There are many ways in which you can estimate an individual’s risk of a particular disease or predict their likely trait value. How you do this will depend on the trait, the circumstances of the individual and the reason for wanting to make such a prediction.</p>
+      <p>This handout can be found here: <a href="https://epxlp.github.io/individual_genetic_risk/">https://epxlp.github.io/individual_genetic_risk/</a></p>
+
+<p>There are many ways in which you can estimate an individual’s risk of a particular disease or predict their likely trait value. How you do this will depend on the trait, the circumstances of the individual and the reason for wanting to make such a prediction.</p>
 
 <p>In today’s session we will demonstrate estimating risk and predicting trait values in a variety of settings using different types of information.</p>
 
@@ -37,94 +39,86 @@ Let’s start by reminded ourselves of the association evidence between being BM
 <table>
 <thead>
 <tr>
-<th>CHR</th>
 <th>SNP</th>
+<th>CHR</th>
+<th>BP</th>
 <th>A1</th>
 <th>BETA</th>
-<th>A1_freq</th>
-<th>var_exp</th>
-<th>OR</th>
-<th>STAT</th>
 <th>P</th>
+<th>MAF</th>
+<th>var_exp</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
 <td>rs12748679</td>
-<td>C</td>
-<td>-0.5972</td>
-<td></td>
-<td>0.0038</td>
-<td></td>
-<td>-6.42</td>
-<td>1.4e-10</td>
-</tr>
-<tr>
 <td>1</td>
+<td>72644585</td>
+<td>C</td>
+<td>-0.598</td>
+<td>1.3E-10</td>
+<td>0.205</td>
+<td>0.0038</td>
+</tr>
+<tr>
 <td>rs630372</td>
+<td>1</td>
+<td>177885762</td>
 <td>A</td>
-<td>0.6878</td>
-<td></td>
-<td></td>
-<td></td>
-<td>7.831</td>
-<td>5.4e-15</td>
+<td>0.687</td>
+<td>5.5E-15</td>
+<td>0.236</td>
+<td>0.0055</td>
 </tr>
 <tr>
-<td>2</td>
 <td>rs2867125</td>
+<td>2</td>
+<td>622827</td>
 <td>T</td>
-<td>-0.6013</td>
-<td></td>
-<td></td>
-<td></td>
-<td>-6.04</td>
-<td>2.2e-8</td>
+<td>-0.606</td>
+<td>1.1E-09</td>
+<td>0.168</td>
+<td>0.0033</td>
 </tr>
 <tr>
-<td>4</td>
 <td>rs13130484</td>
+<td>4</td>
+<td>45175691</td>
 <td>T</td>
-<td>0.4853</td>
-<td></td>
-<td></td>
-<td></td>
-<td>6.391</td>
-<td>1.7e-10</td>
+<td>0.482</td>
+<td>2.2E-10</td>
+<td>0.434</td>
+<td>0.0037</td>
 </tr>
 <tr>
-<td>8</td>
 <td>rs2920930</td>
+<td>8</td>
+<td>76733973</td>
 <td>T</td>
-<td>-0.4611</td>
-<td></td>
-<td></td>
-<td></td>
-<td>-5.604</td>
-<td>2.2e-8</td>
+<td>-0.470</td>
+<td>1.1E-08</td>
+<td>0.296</td>
+<td>0.0030</td>
 </tr>
 <tr>
-<td>16</td>
 <td>rs8050136</td>
+<td>16</td>
+<td>53816275</td>
 <td>A</td>
-<td>0.5906</td>
-<td></td>
-<td></td>
-<td></td>
-<td>7.702</td>
-<td>1.5e-14</td>
+<td>0.594</td>
+<td>9.5E-15</td>
+<td>0.395</td>
+<td>0.0055</td>
 </tr>
 <tr>
+<td>rs12970134</td>
 <td>18</td>
-<td>rs571312</td>
+<td>57884750</td>
 <td>A</td>
-<td>0.9928</td>
-<td></td>
-<td></td>
-<td></td>
-<td>11.26</td>
-<td>3.3e-29</td>
+<td>0.950</td>
+<td>4.0E-29</td>
+<td>0.267</td>
+<td>0.0114</td>
 </tr>
 </tbody>
 </table>
@@ -152,16 +146,25 @@ Some variants might have very large effect, but be extraordinarily rare. This va
 <h1>
 <a id="generating-a-genetic-risk-score" class="anchor" href="#generating-a-genetic-risk-score" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generating a genetic risk score</h1>
 
-<p>Use these commands to extract the 7 SNPs and generate a risk score for each person in the sample:</p>
+<p>First we are going to generate a file that details the SNPs we want to use in the genetic risk score. Copy the following command and check that the snps_for_score.txt file is created.</p>
 
-<pre><code>plink --bfile geno_raw --extract snps_for_score.txt –recode A --out BMI_snps
-plink --bfile geno_raw --score snps_for_score.txt --out BMI_score
+<pre><code>echo 'rs571312        A       1
+rs630372        A       1
+rs8050136       A       1
+rs12748679      T       1
+rs13130484      T       1
+rs2867125       C       1
+rs2920930       G       1' &gt;  ~/ibsc_unit2/data/snps_for_score.txt
+</code></pre>
+
+<p>Use this command to generate a risk score for each person in the sample:</p>
+
+<pre><code>plink --bfile ~/ibsc_unit2/data/geno_qc --score ~/ibsc_unit2/data/snps_for_score.txt --out ~/ibsc_unit2/data/BMI_score
 </code></pre>
 
 <p>Now we will load the data into R</p>
 
-<pre><code>snps &lt;- read.table("~/ibsc_unit2/data/BMI_snps.raw”, header=T)
-score &lt;- read.table(“~/ibsc_unit2/data/BMI_score.profile”, header=T)
+<pre><code>score &lt;- read.table(“~/ibsc_unit2/data/BMI_score.profile”, header=T)
 phen &lt;- read.table(“~/ibsc_unit2/data/phen_clean.txt”)
 </code></pre>
 
@@ -273,6 +276,48 @@ In this dataset for the 2 people you predicted would be obese, you would be righ
 <p><strong>Question: What proportion of people have a genetic risk score&gt;=13?<br>
 Can we consider this a similar situation as the rare high penetrant mutations you were considering in the other part of this practical?</strong></p>
 </blockquote>
+
+<h1>
+<a id="published-examples" class="anchor" href="#published-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Published examples</h1>
+
+<p>Some studies have attempted to predict BMI from genotype (e.g. Speliotes 2010, Nature Genetics 42(11):937-948)</p>
+
+<p><img src="https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/fig1.png" alt="hover"></p>
+
+<p>Fig a. Mean BMI according to risk score - Note there is an increase of ~3kg/m2 between the top and bottom of the genetic risk score
+Fig b. Displays the ROC curve for 2 prediction models. Solid line includes age, age2 and sex (AUC=0.515), dashed line includes age, age2, sex and 32 BMI SNPs (AUC=0.575).</p>
+
+<p><br><br></p>
+
+<blockquote>
+<p><strong>Question: Does including the SNPs improve the prediction of obesity?</strong></p>
+</blockquote>
+
+<p><br><br>
+Another study Morandi PloS ONE 2012, 7(11):e49919 compared genetic prediction to prediction using traditional risk factors.</p>
+
+<p><img src="https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/fig2.png" alt="hover"></p>
+
+<p>Turquoise= genetic risk score, Red= traditional risk factors, dark blue= combined traditional risk factprs and genetic risk score.
+Integrated discrimination improvement (IDI) = 0.5%, shows the possible accuracy improvement associated with adding the genetic score to the traditional risk factors alone. </p>
+
+<p><br><br></p>
+
+<blockquote>
+<p><strong>Question: Is there any improvement including SNPs in the prediction?</strong></p>
+</blockquote>
+
+<p><br><br></p>
+
+<p>Look up this study now and see which traditional risk factors were included in the model.</p>
+
+<p><br><br></p>
+
+<blockquote>
+<p><strong>Why does a prediction that includes ‘parental BMI’ do just as well as one that includes SNPs?</strong></p>
+</blockquote>
+
+<p><br><br></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/epxlp/individual_genetic_risk">Calculating an Individual&#39;s Genetic Risk</a> is maintained by <a href="https://github.com/epxlp">epxlp</a>.</span>
