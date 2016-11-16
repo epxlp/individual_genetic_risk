@@ -156,7 +156,7 @@ In this dataset for the 2 people you predicted would be obese, you would be righ
 
 <br><br>
 > **Question: What proportion of people have a genetic risk score>=13?  
-Can we consider this a similar situation as the rare high penetrant mutations you were considering in the other part of this practical?**
+Can we consider this a similar situation as the rare high penetrant mutations you have considered in other parts of this unit?**
 
 # Published examples
 Some studies have attempted to predict BMI from genotype (e.g. Speliotes 2010, Nature Genetics 42(11):937-948)
