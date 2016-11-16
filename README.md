@@ -1,4 +1,4 @@
-This handout can be found here: [https://epxlp.github.io/individual_genetic_risk/]
+This handout can be found here: https://epxlp.github.io/individual_genetic_risk/
 
 There are many ways in which you can estimate an individual’s risk of a particular disease or predict their likely trait value. How you do this will depend on the trait, the circumstances of the individual and the reason for wanting to make such a prediction.
 
@@ -40,17 +40,27 @@ Some variants might have very large effect, but be extraordinarily rare. This va
 
 # Generating a genetic risk score
 
-Use these commands to extract the 7 SNPs and generate a risk score for each person in the sample:
+First we are going to generate a file that details the SNPs we want to use in the genetic risk score. Copy the following command and check that the snps_for_score.txt file is created.
 
 ```
-plink --bfile geno_raw --extract snps_for_score.txt –recode A --out BMI_snps
-plink --bfile geno_raw --score snps_for_score.txt --out BMI_score
+echo 'rs571312        A       1
+rs630372        A       1
+rs8050136       A       1
+rs12748679      T       1
+rs13130484      T       1
+rs2867125       C       1
+rs2920930       G       1' >  ~/ibsc_unit2/data/snps_for_score.txt
+```
+
+Use this command to generate a risk score for each person in the sample:
+
+```
+plink --bfile ~/ibsc_unit2/data/geno_qc --score ~/ibsc_unit2/data/snps_for_score.txt --out ~/ibsc_unit2/data/BMI_score
 ```
 
 Now we will load the data into R
 
 ```
-snps <- read.table("~/ibsc_unit2/data/BMI_snps.raw”, header=T)
 score <- read.table(“~/ibsc_unit2/data/BMI_score.profile”, header=T)
 phen <- read.table(“~/ibsc_unit2/data/phen_clean.txt”)
 ```
@@ -148,9 +158,31 @@ In this dataset for the 2 people you predicted would be obese, you would be righ
 > **Question: What proportion of people have a genetic risk score>=13?  
 Can we consider this a similar situation as the rare high penetrant mutations you were considering in the other part of this practical?**
 
-![hover](/path/tp/image)
-
 # Published examples
 Some studies have attempted to predict BMI from genotype (e.g. Speliotes 2010, Nature Genetics 42(11):937-948)
 
-Fig a. Mean BMI according to risk score - Note there is
+![hover](epxlp/fig1)
+Fig a. Mean BMI according to risk score - Note there is an increase of ~3kg/m2 between the top and bottom of the genetic risk score
+Fig b. Displays the ROC curve for 2 prediction models. Solid line includes age, age2 and sex (AUC=0.515), dashed line includes age, age2, sex and 32 BMI SNPs (AUC=0.575).
+
+<br><br>
+> **Question: Does including the SNPs improve the prediction of obesity?**
+
+<br><br>
+Another study Morandi PloS ONE 2012, 7(11):e49919 compared genetic prediction to prediction using traditional risk factors.
+![hover](epxlp/fig2)
+
+Turquoise= genetic risk score, Red= traditional risk factors, dark blue= combined traditional risk factprs and genetic risk score.
+Integrated discrimination improvement (IDI) = 0.5%, shows the possible accuracy improvement associated with adding the genetic score to the traditional risk factors alone. 
+
+<br><br>
+> **Question: Is there any improvement including SNPs in the prediction?**
+
+<br><br>
+
+Look up this study now and see which traditional risk factors were included in the model.
+
+<br><br>
+> **Why does a prediction that includes ‘parental BMI’ do just as well as one that includes SNPs?**
+
+<br><br>
