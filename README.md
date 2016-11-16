@@ -172,8 +172,7 @@ Fig b. Displays the ROC curve for 2 prediction models. Solid line includes age, 
 <br><br>
 Another study Morandi PloS ONE 2012, 7(11):e49919 compared genetic prediction to prediction using traditional risk factors.
 
-![hover]
-[[https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/fig2.png]]
+<img src="fig2.png">
 
 
 Turquoise= genetic risk score, Red= traditional risk factors, dark blue= combined traditional risk factprs and genetic risk score.
