@@ -47,6 +47,9 @@ var <- var(phen$BMI, na.rm=TRUE)
 ```
 
 Compare the r^2, beta and MAF between the following two variables:
+
+| SNP	| CHR	| BP	| A1	| BETA	| P	| MAF | var_exp |
+| ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	|
 | rs12970134	| 18	| 57884750	| A	| 0.950	| 4.0E-29	| 0.267	| 0.0114 |
 | rare	| 18	| 57884751	| G	| 22.546	| 1.0E-19	| 0.0003	| 0.0100 |
 
