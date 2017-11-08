@@ -1,16 +1,7 @@
-This handout can be found here: https://epxlp.github.io/individual_genetic_risk/
-
-There are many ways in which you can estimate an individual’s risk of a particular disease or predict their likely trait value. How you do this will depend on the trait, the circumstances of the individual and the reason for wanting to make such a prediction.
-
-In today’s session we will demonstrate estimating risk and predicting trait values in a variety of settings using different types of information.
-
-
-# The data
-Because we have our genes from birth, we could use an individual’s genetic data to estimate their risk having a certain disease later in life. In practice you might be more interested in doing this for cancer or heart disease, but we’ll do this for a trait that you have data for: **BMI/obesity**.
-
-# Recapping association results
-In the GWAS exercise in unit 2 you found a number of genetic variants associated with BMI. 
-Let’s start by reminded ourselves of the association evidence between being BMI and the associated SNPs.
+# Going from association to prediction
+During unit 2 you found a number of genetic variants associated with disease or continuous traits.
+In this session we will see if we can use these findings to predict whether an individual will go on to suffer from disease or their value of a continuous trait.
+Here are the results for a GWAS of BMI:
 
 
 | SNP	| CHR	| BP	| A1	| BETA	| P	| MAF | var_exp |
@@ -35,8 +26,35 @@ Some of these are very strong associations. p=4e-29 is extremely strong evidence
 > **Question: These variants are all associated with being overweight, but what determines how good a variant is for prediction?**
 
 <br><br>
-**BUT – these only tell us how useful a genotype is ‘on average’ in the population. How useful a genotype is for prediction for an individual also depends on the individual’s genotype.
-Some variants might have very large effect, but be extraordinarily rare. This variant would have a low variance explained, but for someone who had this genotype, this would be very informative. Discuss this with a neighbour**
+Run the following lines of code in R, this runs an association between BMI and a new rare genetic varaible:
+
+```
+# load phenotype data into R
+phen <- read.table("~/ibsc_unit2/data/phen_clean.txt")
+
+# Generate a rare genetic variable
+phen$rare <- ifelse(phen$BMI>49.8, 1, 0)
+
+#Check for association between this new rare genetic variable and BMI
+result <- glm(phen$BMI~phen$rare)
+
+#Get the beta from the association
+summary(result)$coef[2,1]
+
+#Calculate the r2
+var <- var(phen$BMI, na.rm=TRUE)
+(summary(result)$coef[2,1]^2*var(phen$rare))/var
+```
+
+Compare the r^2, beta and MAF between the following two variables:
+| rs12970134	| 18	| 57884750	| A	| 0.950	| 4.0E-29	| 0.267	| 0.0114 |
+| rare	| 18	| 57884751	| G	| 22.546	| 1.0E-19	| 0.0003	| 0.0100 |
+
+<br><br>
+> **Question: Which is the better predictor of BMI in the population?**
+> **Question: If someone carries the risk allele for the first variant - how informative is this for this individual?**
+> **Question: If someone carries the risk allele for the second variant - how informative is this for this individual?**
+
 
 # Generating a genetic risk score
 
@@ -93,7 +111,7 @@ Discuss this with a neighbour**
 
 # Individual level prediction
 
-There’s clearly a difference in the genetic_score distribution between healthy and underweight versus obese individuals. However, if I told you someone had a genetic score of 4, what would that tell you?
+There’s clearly a difference in the genetic_score distribution between healthy and underweight versus obese individuals. However, if you knew someone had a genetic score of 4, what would that tell you?
 
 ```
 table (BMI_score, phen$BMIcat)
