@@ -55,7 +55,9 @@ Compare the r^2, beta and MAF between the following two variables:
 
 <br><br>
 > **Question: Which is the better predictor of BMI in the population?**
+<br><br>
 > **Question: If someone carries the risk allele for the first variant - how informative is this for this individual?**
+<br><br>
 > **Question: If someone carries the risk allele for the second variant - how informative is this for this individual?**
 
 
