@@ -22,6 +22,7 @@ Question: How convinced are you that these variants are associated with BMI?**
 <br><br>
 > **Question: These variants are all associated with BMI, but what determines how good a variant is for prediction?**
 <br><br>
+
 <br><br>
 Now imagine we also have identified another variant (VAR1) associated with BMI. The results for this variant are shown in the table below, alongside one of the variants from the table above.
 
@@ -34,6 +35,7 @@ Compare the r<sup>2</sup>, beta and MAF between the following two variants:
 | rs12970134	| 18	| 57884750	| A	| 0.950	| 4.0E-29	| 0.267	| 0.0114 |
 | VAR1	| 18	| 57884751	| G	| 22.546	| 1.0E-19	| 0.0003	| 0.0100 |
 
+<br><br>
 
 > **Question: Which is the better predictor of BMI in the population?**
 <br><br>
@@ -89,8 +91,9 @@ hist(BMI_score[phen$BMIcat=="underweight" | phen$BMIcat=="healthy" | phen$BMIcat
 hist(BMI_score[phen$BMIcat=="obese"], col=rgb(0,0,1,0.5), add=T)
 ```
 
-
+<br><br>
 > **Question: Is there a difference in the PRS between obese and non-obese?**
+
 <br><br>
 
 # Population-level predictions
@@ -104,19 +107,18 @@ sum(phen$BMIcat=="obese" & BMI_score>10)/sum(BMI_score>10)
 
 There seems to be quite a large difference in risk. Those in the bottom 5% of the risk score have only a 30% risk of being obese, whilst those in the top 5% of the risk score have a 60% risk of being obese.
 
-
+<br><br>
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for all children?**
 <br><br>
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for a random 5% of children?**
+
 <br><br>
 
 You can calculate the sensitivity & specificity for this ‘top 5%’ threshold using the following commands:
 
 Sensitivity (or True Positive Rate) 	= True Positives / Positives 
-=  Estimated Obese & actually obese / Actually Obese
 
 Specificity (or True Negative Rate) = True Negatives / Negatives
-=  Estimated Not-obese & actually not-obese / Actually Not-obese
 
 ```
 obese <- ifelse(phen$BMIcat==”obese”, 1, 0)
@@ -136,14 +138,17 @@ spec
 length(which(pred_obese==1))
 ```
 
+<br><br>
 >**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
+
 <br><br>
 
 Now try a different threshold for predicting obesity. Try the mean score of obese individuals (7.54).
 Adapt the code above to answer the same questions:
 
-
+<br><br>
 >**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
+
 <br><br>
 
 
@@ -156,11 +161,14 @@ library(pROC)
 plot(roc(obese, BMI_score), print.auc=TRUE)
 ```
 
-
+<br><br>
 >**Question: Do you think an intervention for obesity should be targeted at children in the top 5% of the risk score? What factors affect your decision?**
 
 <br><br>
+<br><br>
 > **If there was an intervention that was either very costly or had objectionable side effects or consequences, how would that impact what threshold you might use to classify people as 'at risk'**
+
+<br><br>
 <br><br>
 
 # Individual level prediction
@@ -186,6 +194,7 @@ summary(phen$BMI[BMI_score==10])
 
 
 > **For the majority of people knowing your BMI score is very useful / somewhat useful / not very useful (delete as applicable)**
+
 <br><br>
 Another way to think about the sensitivity and specificity values that we calculate earlier is to work out how often we would be right or wrong if we used BMIscore>10 as a prediction for obesity.
 
@@ -202,8 +211,8 @@ given high risk prediction & did become obese:
 given high risk prediction & did not become obese: 
 <br><br> 
 Question: what proportion of the time would you be right?**
-<br><br>
 
+<br><br>
 What about if you took BMI_score>=13 as the cut-off?
 
 ```
@@ -216,12 +225,14 @@ given low risk prediction & did not become obese:
 given low risk prediction & did become obese:  
 given high risk prediction & did become obese:  
 given high risk prediction & did not become obese:**
+
 <br><br>
 <br><br>
 In this dataset for the 2 people you predicted would be obese, you would be right, but you would have incorrectly told 3524 people that they were not in the high risk group.
 
 
 > **Question: What proportion of people have a genetic risk score>=13?**
+
 <br><br>
 This is a similar situation to the rare highly penetrant mutation you considered at the beginning of this session.
 
@@ -239,11 +250,13 @@ Here’s some results from a recent publication on the genetics of male-patterne
 
 
 > **Question: Can you say anything about the genetic architecture of male-patterned baldness from the table above? What implication does this have for genetic prediction?**
+
 <br><br>
 They don’t report the variance explained for the genome-wide significant SNPs, but do estimate the total variance explained by all common SNPs to be ~47%.
 
 
 > **Question: What is important about this type of estimate?**
+
 <br><br>
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_table3.png)
 
