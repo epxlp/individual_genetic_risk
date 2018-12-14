@@ -275,10 +275,10 @@ They don’t report the variance explained for the genome-wide significant SNPs,
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_fig1.png)
 
 
-> **Question: How likely is someone with the highest genetic risk score (score=10) to suffer from sever hair loss?**
+> **Question: How likely is someone with the highest genetic risk score (score=10) to suffer from severe hair loss?**
 
 <br><br>
-> **Bonus Question: How do you think a predictor that uses family history instead of the geentic score would do?**
+> **Bonus Question: How do you think a predictor that uses family history instead of the genetic score would do?**
 
 <br><br>
 
