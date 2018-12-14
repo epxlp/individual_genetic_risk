@@ -84,7 +84,7 @@ Have a look at the file created: BMI_score.profile
 Now start up R and then run the following command to load the data into R:
 
 ```
-setwd "~/ibsc_unit2/data")
+setwd("~/ibsc_unit2/data")
 score <- read.table("BMI_score.profile", header=T)
 phen <- read.table("phen_clean.txt")
 ```
