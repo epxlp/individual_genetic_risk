@@ -84,8 +84,9 @@ Have a look at the file created: BMI_score.profile
 Now start up R and then run the following command to load the data into R:
 
 ```
-score <- read.table(“~/Documents/ibsc_unit2/data/BMI_score.profile”, header=T)
-phen <- read.table(“~/Documents/ibsc_unit2/data/phen_clean.txt”)
+setwd "~/ibsc_unit2/data")
+score <- read.table("BMI_score.profile", header=T)
+phen <- read.table("phen_clean.txt")
 ```
 Run the following commands to investigate the distribution of the genetic risk score
 ```
@@ -126,7 +127,7 @@ Sensitivity (or True Positive Rate) 	= True Positives / Positives
 Specificity (or True Negative Rate) = True Negatives / Negatives
 
 ```
-obese <- ifelse(phen$BMIcat==”obese”, 1, 0)
+obese <- ifelse(phen$BMIcat=="obese", 1, 0)
 pred_obese <- ifelse(BMI_score>10, 1, 0)
 table(obese, pred_obese)
 
