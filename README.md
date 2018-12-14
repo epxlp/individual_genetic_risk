@@ -1,6 +1,6 @@
 # Going from association to prediction
-During unit 2 you found a number of genetic variants associated with disease or continuous traits.
-In this session we will see if we can use these findings to predict whether an individual will go on to suffer from disease or their value of a continuous trait.
+During unit 2 you identified several genetic variants associated with disease or continuous traits.
+In this session we will see if we can use these findings to predict whether an individual will go on to suffer from disease (or their likely value of a continuous trait).
 Here are the results for a GWAS of BMI:
 
 
@@ -16,42 +16,25 @@ Here are the results for a GWAS of BMI:
 
 
 <br><br>
-> **Task: Examine the strength of the evidence for the association (P-value), the magnitude of the association (beta/OR) and the variance in BMI explained for each of these SNPs, that you estimated in unit 2.  
-How convinced are you that these variants are associated with BMI/being overweight?**
+> **Task: Examine the strength of the evidence for the association (P-value), the magnitude of the association (beta) and the variance in BMI explained for each of these SNPs.  
+How convinced are you that these variants are associated with BMI?**
+
+
 
 <br><br>
-Some of these are very strong associations. p=4e-29 is extremely strong evidence of an association. Despite this the effect sizes and the variance explained are quite small, explaining at most 1% of variance (and 3.6% together). 
+> **Question: These variants are all associated with BMI, but what determines how good a variant is for prediction?**
 
 <br><br>
-> **Question: These variants are all associated with being overweight, but what determines how good a variant is for prediction?**
+Now imagine we also have identified another variant (VAR1) associated with BMI. The results for this variant are shown in the table below, alongside one of the variants from the table above.
 
-<br><br>
-Run the following lines of code in R, this runs an association between BMI and a new rare genetic varaible:
 
-```
-# load phenotype data into R
-phen <- read.table("~/ibsc_unit2/data/phen_clean.txt")
 
-# Generate a rare genetic variable
-phen$rare <- ifelse(phen$BMI>49.8, 1, 0)
-
-#Check for association between this new rare genetic variable and BMI
-result <- glm(phen$BMI~phen$rare)
-
-#Get the beta from the association
-summary(result)$coef[2,1]
-
-#Calculate the r2
-var <- var(phen$BMI, na.rm=TRUE)
-(summary(result)$coef[2,1]^2*var(phen$rare))/var
-```
-
-Compare the r^2, beta and MAF between the following two variables:
+Compare the r<sup>2</sup>, beta and MAF between the following two variants:
 
 | SNP	| CHR	| BP	| A1	| BETA	| P	| MAF | var_exp |
 | ---	| ---	| ---	| ---	| ---	| ---	| ---	| ---	|
 | rs12970134	| 18	| 57884750	| A	| 0.950	| 4.0E-29	| 0.267	| 0.0114 |
-| rare	| 18	| 57884751	| G	| 22.546	| 1.0E-19	| 0.0003	| 0.0100 |
+| VAR1	| 18	| 57884751	| G	| 22.546	| 1.0E-19	| 0.0003	| 0.0100 |
 
 <br><br>
 > **Question: Which is the better predictor of BMI in the population?**
@@ -59,11 +42,14 @@ Compare the r^2, beta and MAF between the following two variables:
 > **Question: If someone carries the risk allele for the first variant - how informative is this for this individual?**
 <br><br>
 > **Question: If someone carries the risk allele for the second variant - how informative is this for this individual?**
+<br><br>
+> **Question: If someone does not carry the risk allele for the second variant - how informative is this for this individual?**
 
+# Combining SNPs into a Polygenic Risk Score (PRS)
 
-# Generating a genetic risk score
+First we are going to generate a file that details the SNPs we want to use in the score. 
 
-First we are going to generate a file that details the SNPs we want to use in the genetic risk score. Copy the following command and check that the snps_for_score.txt file is created.
+Use the following bash command to generate a snps_for_score.txt file.
 
 ```
 echo 'rs571312        A       1
@@ -72,28 +58,41 @@ rs8050136       A       1
 rs12748679      T       1
 rs13130484      T       1
 rs2867125       C       1
-rs2920930       G       1' >  ~/ibsc_unit2/data/snps_for_score.txt
+rs2920930       G       1' >  ~/Documents/ibsc_unit2/data/snps_for_score.txt
 ```
 
-Use this command to generate a risk score for each person in the sample:
+The third column in this file denotes the weight that should be applied to each SNP
+
+<br><br>
+> **Question: Is this a weighted or an unweighted score?**
+
+<br><br>
+> **Question: What values would you include in column 3 to make the other type of score?**
+
+
+Use this Plink command to generate a risk score for each person in the sample:
 
 ```
-plink --bfile ~/ibsc_unit2/data/geno_qc --score ~/ibsc_unit2/data/snps_for_score.txt --out ~/ibsc_unit2/data/BMI_score
+plink --bfile ~/Documents/ibsc_unit2/data/geno_qc --score ~/Documents/ibsc_unit2/data/snps_for_score.txt --out ~/Documents/ibsc_unit2/data/BMI_score
 ```
 
-Now we will load the data into R
+Now start up R and then run the following command to load the data into R:
 
 ```
-score <- read.table(“~/ibsc_unit2/data/BMI_score.profile”, header=T)
-phen <- read.table(“~/ibsc_unit2/data/phen_clean.txt”)
+score <- read.table(“~/Documents/ibsc_unit2/data/BMI_score.profile”, header=T)
+phen <- read.table(“~/Documents/ibsc_unit2/data/phen_clean.txt”)
 ```
 Run the following commands to investigate the distribution of the genetic risk score
 ```
 BMI_score <- score$CNT2
 hist(BMI_score)
-hist(BMI_score[phen$BMIcat=="underweight" | phen$BMIcat=="healthy"], col=rgb(1,0,0,0.5), xlim=c(0,14), ylim=c(0,600), main = "BMI categories", xlab="genetic_score")
+hist(BMI_score[phen$BMIcat=="underweight" | phen$BMIcat=="healthy" | phen$BMIcat=="overweight"], col=rgb(1,0,0,0.5), xlim=c(0,14), main = "BMI categories", xlab="genetic_score")
 hist(BMI_score[phen$BMIcat=="obese"], col=rgb(0,0,1,0.5), add=T)
 ```
+
+<br><br>
+> **Question: Is there a difference in the PRS between obese and non-obese?**
+
 
 # Population-level predictions
 
@@ -104,15 +103,13 @@ sum(phen$BMIcat=="obese" & BMI_score<5)/sum(BMI_score<5)
 sum(phen$BMIcat=="obese" & BMI_score>10)/sum(BMI_score>10)
 ```
 
-There seems to be quite a significant difference in risk. Those in the bottom 5% of the risk score have only a 30% risk of being obese, whilst those in the top 5% of the risk score have a 60% risk of being obese.
+There seems to be quite a large difference in risk. Those in the bottom 5% of the risk score have only a 30% risk of being obese, whilst those in the top 5% of the risk score have a 60% risk of being obese.
 
 <br><br>
-> **Question: Do you think it would be an economically effective strategy to target an intervention only at children that were in the top 5% of the risk score?  
-Although this is unlikely to happen for an outcome such as BMI, think about if the outcome were cancer or Alzheimer’s disease.  
-Discuss this with a neighbour**
-
+> **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for all children?**
 <br><br>
-**As a genetic risk score increases there is a sliding scale of increased risk, but any health policies would likely have to define a threshold and this would have sensitivity and specificity implications.**
+> **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for a random 5% of children?**
+
 
 # Individual level prediction
 
