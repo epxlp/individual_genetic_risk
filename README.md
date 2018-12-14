@@ -236,9 +236,6 @@ Here’s some results from a recent publication on the genetics of male-patterne
 
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_table1.png)
 
-Other studies you might want to read that include genetic prediction of complex traits:
-<br><br>
-
 
 <br><br>
 > **Question: Can you say anything about the genetic architecture of male-patterned baldness from the table above? What implication does this have for genetic prediction?**
@@ -248,6 +245,25 @@ They don’t report the variance explained for the genome-wide significant SNPs,
 <br><br>
 > **Question: What is important about this type of estimate?**
 
+![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_table3.png)
+
+<br><br>
+> **Question: Which polygenic risk score is the one that gives the optimal population-level prediction? Why does this measure fluctuate in this way?**
+
+
+![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_fig1.png)
+
+<br><br>
+> **Question: How likely is someone with the highest genetic risk score (score=10) to suffer from sever hair loss?**
+<br><br>
+> **Bonus Question: How do you think a predictor that uses family history instead of the geentic score would do?**
+<br><br>
+
+Now read the study for yourself and see how they reported these results.
+
+
+Other studies you might want to read that include genetic prediction of complex traits:
+<br><br>
 Speliotes 2010, Nature Genetics 42(11):937-948: predict of BMI from genetic data
 Morandi PloS ONE 2012, 7(11):e49919: compared genetic prediction to prediction using traditional risk factors
 Timmers BioRxiv 2018, doi.org/10.1101/363036: Peter Joshi's work on genetic prediction of lifespan
