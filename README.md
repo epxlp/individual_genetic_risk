@@ -111,10 +111,61 @@ There seems to be quite a large difference in risk. Those in the bottom 5% of th
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for a random 5% of children?**
 
 
+You can calculate the sensitivity & specificity for this ‘top 5%’ threshold using the following commands:
+
+Sensitivity (or True Positive Rate) 	= True Positives / Positives 
+=  Estimated Obese / Obese
+
+Specificity (or True Negative Rate) = True Negatives / Negatives
+=  Estimated Not-obese / Not-obese
+
+```
+obese <- ifelse(phen$BMIcat==”obese”, 1, 0)
+pred_obese <- ifelse(BMI_score>10, 1, 0)
+table(obese, pred_obese)
+
+P <- length(which(obese==1))
+N <- length(which(obese==0))
+TP <- length(which(obese==1 & pred_obese==1))
+TN <- length(which(obese==0 & pred_obese==0))
+
+sens <- TP/P
+sens
+spec <- TN/N
+spec
+
+length(which(pred_obese==1))
+```
+<br><br>
+>**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
+
+Now try a different threshold for predicting obesity. Try the mean score of obese individuals (7.54).
+Adapt the code above to answer the same questions:
+
+<br><br>
+>**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
+
+
+
+
+You can generate a ROC curve and calculate AUC using the following commands:
+
+```
+install.packages("pROC")
+library(pROC)
+plot(roc(obese, BMI_score), print.auc=TRUE)
+```
+
+<br><br>
+>**Question: Do you think an intervention for obesity should be targeted at children in the top 5% of the risk score? What factors affect your decision?**
+
+<br><br>
+> **If there was an intervention that was either very costly or had objectionable side effects or consequences, how would that impact what threshold you might use to classify people as 'at risk'**
+
+
 # Individual level prediction
 
-There’s clearly a difference in the genetic_score distribution between healthy and underweight versus obese individuals. However, if you knew someone had a genetic score of 4, what would that tell you?
-
+There’s clearly a difference in the genetic_score distribution between healthy and underweight versus obese individuals. However, if you knew someone had a genetic score of 4, how useful would that be?
 ```
 table (BMI_score, phen$BMIcat)
 summary(phen$BMI[BMI_score==4])
@@ -134,16 +185,14 @@ summary(phen$BMI[BMI_score==10])
 90% of people fall between BMI_scores of 5 and 10, the mean BMI difference between the top and bottom of this range is: 2.81kg/m2 BMI=30 versus BMI=27. 
 
 <br><br>
-> **For the majority of people knowing your BMI score is very useful / somewhat useful / pretty useless (delete as applicable)**
+> **For the majority of people knowing your BMI score is very useful / somewhat useful / not very useful (delete as applicable)**
 
-If we classed everyone with BMI_score >10 as at risk of obesity. How often would we be right and wrong?
+Another way ti think about the sensitivity and specificity values that we calculate earlier is to work out how often we would be right or wrong if we used BMIscore>10 as a prediction for obesity.
 
 ```
-obese <- phen$BMIcat
-levels(obese) <- c("control", "obese", "control", "control")
-risk <- factor(BMI_score)
-levels(risk) <- c("<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", ">10", ">10", ">10")
-table(obese, risk)
+obese <- ifelse(phen$BMIcat=="obese", 1, 0)
+pred_obese <- ifelse(BMI_score>10, 1, 0)
+table(obese, pred_obese)
 ```
 <br><br>
 > **Give the numbers in each category:  
@@ -154,15 +203,12 @@ given high risk prediction & did not become obese:
 <br><br> 
 Question: what proportion of the time would you be right?**
 
-<br><br>
-You are only going to be right 57% of the time. So for an individual you can make a prediction, but it’s not much better than flipping a coin
 
 What about if you took BMI_score>=13 as the cut-off?
 
 ```
-risk <- factor(BMI_score)
-levels(risk) <- c("<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", "<=10", ">10")
-table(obese, risk)
+pred_obese <- ifelse(BMI_score>13, 1, 0)
+table(obese, pred_obese)
 ```
 <br><br>
 > **Give the numbers in each category:  
@@ -175,37 +221,32 @@ given high risk prediction & did not become obese:**
 In this dataset for the 2 people you predicted would be obese, you would be right, but you would have incorrectly told 3524 people that they were not in the high risk group.
 
 <br><br>
-> **Question: What proportion of people have a genetic risk score>=13?  
-Can we consider this a similar situation as the rare high penetrant mutations you have considered in other parts of this unit?**
+> **Question: What proportion of people have a genetic risk score>=13?**
 
-# Published examples
-Some studies have attempted to predict BMI from genotype (e.g. Speliotes 2010, Nature Genetics 42(11):937-948)
-
-<img src="fig1.png">
-
-Fig a. Mean BMI according to risk score - Note there is an increase of ~3kg/m2 between the top and bottom of the genetic risk score
-Fig b. Displays the ROC curve for 2 prediction models. Solid line includes age, age2 and sex (AUC=0.515), dashed line includes age, age2, sex and 32 BMI SNPs (AUC=0.575).
+This is a similar situation to the rare highly penetrant mutation you considered at the beginning of this session.
 
 <br><br>
-> **Question: Does including the SNPs improve the prediction of obesity?**
-
-<br><br>
-Another study Morandi PloS ONE 2012, 7(11):e49919 compared genetic prediction to prediction using traditional risk factors.
-
-<img src="fig2.png">
-
-
-Turquoise= genetic risk score, Red= traditional risk factors, dark blue= combined traditional risk factprs and genetic risk score.
-Integrated discrimination improvement (IDI) = 0.5%, shows the possible accuracy improvement associated with adding the genetic score to the traditional risk factors alone. 
-
-<br><br>
-> **Question: Is there any improvement including SNPs in the prediction?**
-
+> **Sum up in your own words how useful calculating a polygenic risk score for BMI is. Consider what would affect your assessment?**
 <br><br>
 
-Look up this study now and see which traditional risk factors were included in the model.
+
+# Published example
+
+Here’s some results from a recent publication on the genetics of male-patterned baldness. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5308812/
+
+
+Other studies you might want to read that include genetic prediction of complex traits:
+<br><br>
+
 
 <br><br>
-> **Why does a prediction that includes ‘parental BMI’ do just as well as one that includes SNPs?**
+> **Question: Can you say anything about the genetic architecture of male-patterned baldness from the table above? What implication does this have for genetic prediction?**
+
+They don’t report the variance explained for the genome-wide significant SNPs, but do estimate the total variance explained by all common SNPs to be ~47%.
 
 <br><br>
+> **Question: What is important about this type of estimate?**
+
+Speliotes 2010, Nature Genetics 42(11):937-948: predict of BMI from genetic data
+Morandi PloS ONE 2012, 7(11):e49919: compared genetic prediction to prediction using traditional risk factors
+Timmers BioRxiv 2018, doi.org/10.1101/363036: Peter Joshi's work on genetic prediction of lifespan
