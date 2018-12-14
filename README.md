@@ -234,6 +234,7 @@ This is a similar situation to the rare highly penetrant mutation you considered
 
 Here’s some results from a recent publication on the genetics of male-patterned baldness. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5308812/
 
+![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_table1.png)
 
 Other studies you might want to read that include genetic prediction of complex traits:
 <br><br>
