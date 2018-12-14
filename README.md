@@ -109,6 +109,7 @@ There seems to be quite a large difference in risk. Those in the bottom 5% of th
 
 <br><br>
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for all children?**
+
 <br><br>
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for a random 5% of children?**
 
@@ -238,6 +239,8 @@ This is a similar situation to the rare highly penetrant mutation you considered
 
 
 > **Sum up in your own words how useful calculating a polygenic risk score for BMI is. Consider what would affect your assessment?**
+
+<br><br>
 <br><br>
 
 
@@ -262,14 +265,17 @@ They don’t report the variance explained for the genome-wide significant SNPs,
 
 
 > **Question: Which polygenic risk score is the one that gives the optimal population-level prediction? Why does this measure fluctuate in this way?**
+
 <br><br>
 
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_fig1.png)
 
 
 > **Question: How likely is someone with the highest genetic risk score (score=10) to suffer from sever hair loss?**
+
 <br><br>
 > **Bonus Question: How do you think a predictor that uses family history instead of the geentic score would do?**
+
 <br><br>
 
 Now read the study for yourself and see how they reported these results
