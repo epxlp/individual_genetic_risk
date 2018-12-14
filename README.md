@@ -228,7 +228,6 @@ given high risk prediction & did become obese:
 given high risk prediction & did not become obese:**
 
 <br><br>
-<br><br>
 In this dataset for the 2 people you predicted would be obese, you would be right, but you would have incorrectly told 3524 people that they were not in the high risk group.
 
 
