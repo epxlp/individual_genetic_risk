@@ -79,7 +79,8 @@ Use this Plink command to generate a risk score for each person in the sample:
 cd ~/Documents/ibsc_unit2/data
 plink --bfile geno_qc --score snps_for_score.txt --out BMI_score
 ```
-
+Have a look at the file created: BMI_score.profile
+<br><br>
 Now start up R and then run the following command to load the data into R:
 
 ```
