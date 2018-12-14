@@ -1,3 +1,5 @@
+This worksheet is also available from: github.com/epxlp/individual_genetic_risk
+
 # Going from association to prediction
 During unit 2 you identified several genetic variants associated with disease or continuous traits.
 In this session we will see if we can use these findings to predict whether an individual will go on to suffer from disease (or their likely value of a continuous trait).
