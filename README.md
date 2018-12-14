@@ -169,7 +169,7 @@ plot(roc(obese, BMI_score), print.auc=TRUE)
 
 <br><br>
 <br><br>
-> **If there was an intervention that was either very costly or had objectionable side effects or consequences, how would that impact what threshold you might use to classify people as 'at risk'**
+> **If there was an intervention that was either very costly or had objectionable side effects or consequences, how would that impact what threshold you might use to classify people as 'at risk'?**
 
 <br><br>
 <br><br>
