@@ -17,13 +17,11 @@ Here are the results for a GWAS of BMI:
 
 <br><br>
 > **Task: Examine the strength of the evidence for the association (P-value), the magnitude of the association (beta) and the variance in BMI explained for each of these SNPs.  
-How convinced are you that these variants are associated with BMI?**
-
-
-
+Question: How convinced are you that these variants are associated with BMI?**
+<br><br>
 <br><br>
 > **Question: These variants are all associated with BMI, but what determines how good a variant is for prediction?**
-
+<br><br>
 <br><br>
 Now imagine we also have identified another variant (VAR1) associated with BMI. The results for this variant are shown in the table below, alongside one of the variants from the table above.
 
@@ -36,7 +34,7 @@ Compare the r<sup>2</sup>, beta and MAF between the following two variants:
 | rs12970134	| 18	| 57884750	| A	| 0.950	| 4.0E-29	| 0.267	| 0.0114 |
 | VAR1	| 18	| 57884751	| G	| 22.546	| 1.0E-19	| 0.0003	| 0.0100 |
 
-<br><br>
+
 > **Question: Which is the better predictor of BMI in the population?**
 <br><br>
 > **Question: If someone carries the risk allele for the first variant - how informative is this for this individual?**
@@ -44,6 +42,7 @@ Compare the r<sup>2</sup>, beta and MAF between the following two variants:
 > **Question: If someone carries the risk allele for the second variant - how informative is this for this individual?**
 <br><br>
 > **Question: If someone does not carry the risk allele for the second variant - how informative is this for this individual?**
+<br><br>
 
 # Combining SNPs into a Polygenic Risk Score (PRS)
 
@@ -63,13 +62,13 @@ rs2920930       G       1' >  ~/Documents/ibsc_unit2/data/snps_for_score.txt
 
 The third column in this file denotes the weight that should be applied to each SNP
 
-<br><br>
+
 > **Question: Is this a weighted or an unweighted score?**
 
 <br><br>
 > **Question: What values would you include in column 3 to make the other type of score?**
 
-
+<br><br>
 Use this Plink command to generate a risk score for each person in the sample:
 
 ```
@@ -90,9 +89,9 @@ hist(BMI_score[phen$BMIcat=="underweight" | phen$BMIcat=="healthy" | phen$BMIcat
 hist(BMI_score[phen$BMIcat=="obese"], col=rgb(0,0,1,0.5), add=T)
 ```
 
-<br><br>
-> **Question: Is there a difference in the PRS between obese and non-obese?**
 
+> **Question: Is there a difference in the PRS between obese and non-obese?**
+<br><br>
 
 # Population-level predictions
 
@@ -105,19 +104,19 @@ sum(phen$BMIcat=="obese" & BMI_score>10)/sum(BMI_score>10)
 
 There seems to be quite a large difference in risk. Those in the bottom 5% of the risk score have only a 30% risk of being obese, whilst those in the top 5% of the risk score have a 60% risk of being obese.
 
-<br><br>
+
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for all children?**
 <br><br>
 > **Question: Would an intervention targeted at children in the top 5% of the risk score be more effective than one used for a random 5% of children?**
-
+<br><br>
 
 You can calculate the sensitivity & specificity for this ‘top 5%’ threshold using the following commands:
 
 Sensitivity (or True Positive Rate) 	= True Positives / Positives 
-=  Estimated Obese / Obese
+=  Estimated Obese & actually obese / Actually Obese
 
 Specificity (or True Negative Rate) = True Negatives / Negatives
-=  Estimated Not-obese / Not-obese
+=  Estimated Not-obese & actually not-obese / Actually Not-obese
 
 ```
 obese <- ifelse(phen$BMIcat==”obese”, 1, 0)
@@ -136,15 +135,16 @@ spec
 
 length(which(pred_obese==1))
 ```
-<br><br>
+
 >**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
+<br><br>
 
 Now try a different threshold for predicting obesity. Try the mean score of obese individuals (7.54).
 Adapt the code above to answer the same questions:
 
-<br><br>
->**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
 
+>**Question: How sensitive and specific is this threshold? How many individuals would be selected? Comment on these values.**
+<br><br>
 
 
 
@@ -156,12 +156,12 @@ library(pROC)
 plot(roc(obese, BMI_score), print.auc=TRUE)
 ```
 
-<br><br>
+
 >**Question: Do you think an intervention for obesity should be targeted at children in the top 5% of the risk score? What factors affect your decision?**
 
 <br><br>
 > **If there was an intervention that was either very costly or had objectionable side effects or consequences, how would that impact what threshold you might use to classify people as 'at risk'**
-
+<br><br>
 
 # Individual level prediction
 
@@ -184,17 +184,17 @@ summary(phen$BMI[BMI_score==10])
 
 90% of people fall between BMI_scores of 5 and 10, the mean BMI difference between the top and bottom of this range is: 2.81kg/m2 BMI=30 versus BMI=27. 
 
-<br><br>
-> **For the majority of people knowing your BMI score is very useful / somewhat useful / not very useful (delete as applicable)**
 
-Another way ti think about the sensitivity and specificity values that we calculate earlier is to work out how often we would be right or wrong if we used BMIscore>10 as a prediction for obesity.
+> **For the majority of people knowing your BMI score is very useful / somewhat useful / not very useful (delete as applicable)**
+<br><br>
+Another way to think about the sensitivity and specificity values that we calculate earlier is to work out how often we would be right or wrong if we used BMIscore>10 as a prediction for obesity.
 
 ```
 obese <- ifelse(phen$BMIcat=="obese", 1, 0)
 pred_obese <- ifelse(BMI_score>10, 1, 0)
 table(obese, pred_obese)
 ```
-<br><br>
+
 > **Give the numbers in each category:  
 given low risk prediction & did not become obese:  
 given low risk prediction & did become obese:  
@@ -202,7 +202,7 @@ given high risk prediction & did become obese:
 given high risk prediction & did not become obese: 
 <br><br> 
 Question: what proportion of the time would you be right?**
-
+<br><br>
 
 What about if you took BMI_score>=13 as the cut-off?
 
@@ -210,22 +210,22 @@ What about if you took BMI_score>=13 as the cut-off?
 pred_obese <- ifelse(BMI_score>13, 1, 0)
 table(obese, pred_obese)
 ```
-<br><br>
+
 > **Give the numbers in each category:  
 given low risk prediction & did not become obese:  
 given low risk prediction & did become obese:  
 given high risk prediction & did become obese:  
 given high risk prediction & did not become obese:**
-
+<br><br>
 <br><br>
 In this dataset for the 2 people you predicted would be obese, you would be right, but you would have incorrectly told 3524 people that they were not in the high risk group.
 
-<br><br>
-> **Question: What proportion of people have a genetic risk score>=13?**
 
+> **Question: What proportion of people have a genetic risk score>=13?**
+<br><br>
 This is a similar situation to the rare highly penetrant mutation you considered at the beginning of this session.
 
-<br><br>
+
 > **Sum up in your own words how useful calculating a polygenic risk score for BMI is. Consider what would affect your assessment?**
 <br><br>
 
@@ -237,33 +237,33 @@ Here’s some results from a recent publication on the genetics of male-patterne
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_table1.png)
 
 
-<br><br>
-> **Question: Can you say anything about the genetic architecture of male-patterned baldness from the table above? What implication does this have for genetic prediction?**
 
+> **Question: Can you say anything about the genetic architecture of male-patterned baldness from the table above? What implication does this have for genetic prediction?**
+<br><br>
 They don’t report the variance explained for the genome-wide significant SNPs, but do estimate the total variance explained by all common SNPs to be ~47%.
 
-<br><br>
-> **Question: What is important about this type of estimate?**
 
+> **Question: What is important about this type of estimate?**
+<br><br>
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_table3.png)
 
-<br><br>
-> **Question: Which polygenic risk score is the one that gives the optimal population-level prediction? Why does this measure fluctuate in this way?**
 
+> **Question: Which polygenic risk score is the one that gives the optimal population-level prediction? Why does this measure fluctuate in this way?**
+<br><br>
 
 ![alt text](https://github.com/epxlp/individual_genetic_risk/blob/gh-pages/baldness_fig1.png)
 
-<br><br>
+
 > **Question: How likely is someone with the highest genetic risk score (score=10) to suffer from sever hair loss?**
 <br><br>
 > **Bonus Question: How do you think a predictor that uses family history instead of the geentic score would do?**
 <br><br>
 
-Now read the study for yourself and see how they reported these results.
+Now read the study for yourself and see how they reported these results
 
 
-Other studies you might want to read that include genetic prediction of complex traits:
+**Other studies you might want to read that include genetic prediction of complex traits:**
 <br><br>
-Speliotes 2010, Nature Genetics 42(11):937-948: predict of BMI from genetic data
-Morandi PloS ONE 2012, 7(11):e49919: compared genetic prediction to prediction using traditional risk factors
+Speliotes 2010, Nature Genetics 42(11):937-948: predict of BMI from genetic data<br/>
+Morandi PloS ONE 2012, 7(11):e49919: compared genetic prediction to prediction using traditional risk factors<br/>
 Timmers BioRxiv 2018, doi.org/10.1101/363036: Peter Joshi's work on genetic prediction of lifespan
