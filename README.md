@@ -76,7 +76,8 @@ The third column in this file denotes the weight that should be applied to each 
 Use this Plink command to generate a risk score for each person in the sample:
 
 ```
-plink --bfile ~/Documents/ibsc_unit2/data/geno_qc --score ~/Documents/ibsc_unit2/data/snps_for_score.txt --out ~/Documents/ibsc_unit2/data/BMI_score
+cd ~/Documents/ibsc_unit2/data
+plink --bfile geno_qc --score snps_for_score.txt --out BMI_score
 ```
 
 Now start up R and then run the following command to load the data into R:
