@@ -86,7 +86,7 @@ Now start up R and then run the following command to load the data into R:
 ```
 setwd("~/ibsc_unit2/data")
 score <- read.table("BMI_score.profile", header=T)
-phen <- read.table("phen_clean.txt")
+phen <- read.table("phen_clean.txt", header=T)
 ```
 Run the following commands to investigate the distribution of the genetic risk score
 ```
