@@ -76,21 +76,21 @@ The third column in this file denotes the weight that should be applied to each 
 Use this Plink command to generate a risk score for each person in the sample:
 
 ```
-cd ~/Documents/ibsc_unit2/data
-plink --bfile geno_qc --score snps_for_score.txt --out BMI_score
+cd ibsc_unit2/data
+plink --bfile geno_qc --score snps_for_score.txt sum --out BMI_score
 ```
 Have a look at the file created: BMI_score.profile
 <br><br>
 Now start up R and then run the following command to load the data into R:
 
 ```
-setwd("~/ibsc_unit2/data")
+setwd("../../Documents/ibsc_unit2/data")
 score <- read.table("BMI_score.profile", header=T)
 phen <- read.table("phen_clean.txt", header=T)
 ```
 Run the following commands to investigate the distribution of the genetic risk score
 ```
-BMI_score <- score$CNT2
+BMI_score <- score$SCORESUM
 hist(BMI_score)
 hist(BMI_score[phen$BMIcat=="underweight" | phen$BMIcat=="healthy" | phen$BMIcat=="overweight"], col=rgb(1,0,0,0.5), xlim=c(0,14), main = "BMI categories", xlab="genetic_score")
 hist(BMI_score[phen$BMIcat=="obese"], col=rgb(0,0,1,0.5), add=T)
